@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
+        <link rel="stylesheet" href="css/signup.css">
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>signup</title>
+        
+    </head>
+    <body>
+       
+        <div class="container">
+            <h1 class="text-center align-text-center "> Signup </h1>
+            <div class="row">
+                
+                <div class="col-12 text-center" >
+                    <form id="signupform">
+                        <div class="form-group">
+                          <label >Email address</label>
+                          <input type="email" id="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                          
+                        </div>
+                        <div class="form-group">
+                          <label>Password</label>
+                          <input type="password" class="form-control" id="password" placeholder="Password">
+                        </div>
+                        <button onclick="handleSubmit(event)" class="btn btn-primary signupbtn">Signup</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+    <script>
+        const firebaseConfig = {
+    apiKey: "AIzaSyDNaNRZSLk96eHP9_4JQ7HYubpCnVq8IAc",
+    authDomain: "bicycle-app-f3005.firebaseapp.com",
+    databaseURL: "https://bicycle-app-f3005.firebaseio.com",
+    projectId: "bicycle-app-f3005",
+    storageBucket: "bicycle-app-f3005.appspot.com",
+    messagingSenderId: "19986827976",
+    appId: "1:19986827976:web:41f47defbff90c481b33fd"
+    };
+    firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="js/handleSignup.js"></script>
+</html>
