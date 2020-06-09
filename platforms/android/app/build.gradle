@@ -98,6 +98,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "../cordova-plugin-firestore/myapp-firestore.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -251,6 +252,8 @@ android {
         // This provides compatibility to the default logic for versionCode before cordova-android 5.2.0
         defaultConfig {
             versionCode defaultConfig.versionCode*10
+            
+             multiDexEnabled true
         }
     }
 
@@ -293,6 +296,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
+    implementation "com.google.firebase:firebase-core:16.0.8"
+    implementation "com.google.firebase:firebase-firestore:18.2.0"
+    implementation "com.google.code.gson:gson:2.8.2"
     // SUB-PROJECT DEPENDENCIES END
 }
 

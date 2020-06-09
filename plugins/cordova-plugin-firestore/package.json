@@ -1,0 +1,76 @@
+{
+  "_from": "cordova-plugin-firestore@3.0.0",
+  "_id": "cordova-plugin-firestore@3.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-4A6uXIKPafh6qXuL9aZCiOFYC8Fxpw4n62OpB2crn0Grzv9ItG/ocSdBzw7+xfOC1UVhJBRe/mG8cSXkjRaUBQ==",
+  "_location": "/cordova-plugin-firestore",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-firestore@3.0.0",
+    "name": "cordova-plugin-firestore",
+    "escapedName": "cordova-plugin-firestore",
+    "rawSpec": "3.0.0",
+    "saveSpec": null,
+    "fetchSpec": "3.0.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-firestore/-/cordova-plugin-firestore-3.0.0.tgz",
+  "_shasum": "eaf379566557eeff0a1a4040c9f35d4cafc0d98e",
+  "_spec": "cordova-plugin-firestore@3.0.0",
+  "_where": "C:\\Users\\hardik khanchandani\\Desktop\\cordova\\myapp",
+  "author": {
+    "name": "Richard Windley",
+    "email": "richard.windley@gmail.com",
+    "url": "http://www.reallysmall.co.uk"
+  },
+  "bugs": {
+    "url": "https://github.com/ReallySmallSoftware/cordova-plugin-firestore/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-firestore",
+    "platforms": [
+      "android",
+      "ios",
+      "browser"
+    ]
+  },
+  "deprecated": false,
+  "description": "A Google Firebase Firestore plugin",
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-jshint": "^1.1.0",
+    "jest": "^24.7.1"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "0.0.7": {
+        "cordova": ">=7.0.0",
+        "cordova-android": ">=5.0.0",
+        "cordova-ios": ">=4.0.0"
+      }
+    }
+  },
+  "homepage": "https://github.com/ReallySmallSoftware/cordova-plugin-firestore",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-browser"
+  ],
+  "license": "Apache-2.0",
+  "name": "cordova-plugin-firestore",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ReallySmallSoftware/cordova-plugin-firestore.git"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "version": "3.0.0"
+}

@@ -63,6 +63,8 @@ android {
     // For the Android Cordova Lib, we will hardcode the minSdkVersion and not allow changes.
     defaultConfig {
         minSdkVersion 19
+        
+        multiDexEnabled true
     }
 
     sourceSets {

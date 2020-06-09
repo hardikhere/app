@@ -7,18 +7,10 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-device": {
+  "cordova-plugin-firestore": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-device"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
-  "cordova-plugin-console": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-console"
+      "id": "cordova-plugin-firestore@3.0.0"
     },
     "is_top_level": true,
     "variables": {}

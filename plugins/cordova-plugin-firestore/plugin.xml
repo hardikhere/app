@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-firestore" version="3.0.0">
+  <name>Cordova Firestore Plugin</name>
+  <description>Google Firebase Firestore</description>
+  <license>MIT</license>
+  <keywords>database, nosql, realtime, cloud</keywords>
+
+  <engines>
+    <engine name="cordova" version=">=7.0.0" />
+    <engine name="cordova-android" version=">=7.0.0" />
+    <engine name="cordova-plugman" version=">=4.2.0" />
+    <engine name="cordova-ios" version=">=4.5.0" />
+  </engines>
+
+  <platform name="browser">
+    <js-module src="www/browser/firestore.js" name="Firestore">
+      <clobbers target="Firestore"/>
+    </js-module>
+  </platform>
+
+  <platform name="android">
+    <js-module src="www/android_ios/firestore.js" name="Firestore">
+      <clobbers target="Firestore"/>
+    </js-module>
+    <js-module src="www/android_ios/collection_reference.js" name="collection_reference"/>
+    <js-module src="www/android_ios/query.js" name="query"/>
+    <js-module src="www/android_ios/document_reference.js" name="document_reference"/>
+    <js-module src="www/android_ios/document_snapshot.js" name="document_snapshot"/>
+    <js-module src="www/android_ios/query_snapshot.js" name="query_snapshot"/>
+    <js-module src="www/android_ios/query_document_snapshot.js" name="query_document_snapshot"/>
+    <js-module src="www/android_ios/firestore_timestamp.js" name="firestore_timestamp"/>
+    <js-module src="www/android_ios/transaction.js" name="transaction"/>
+    <js-module src="www/android_ios/utilities.js" name="utilities"/>
+    <js-module src="www/android_ios/geo_point.js" name="geo_point" />
+    <js-module src="www/android_ios/path.js" name="path" />
+    <js-module src="www/android_ios/utils.js" name="utils" />
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="Firestore">
+        <param name="android-package" value="uk.co.reallysmall.cordova.plugin.firestore.FirestorePlugin"/>
+        <param name="onload" value="true"/>
+      </feature>
+    </config-file>
+
+    <preference name="ANDROID_FIREBASE_CORE_VERSION" default="16.0.8"/>
+    <preference name="ANDROID_FIREBASE_FIRESTORE_VERSION" default="18.2.0"/>
+    <framework src="com.google.firebase:firebase-core:$ANDROID_FIREBASE_CORE_VERSION"/>
+    <framework src="com.google.firebase:firebase-firestore:$ANDROID_FIREBASE_FIRESTORE_VERSION"/>
+    <framework src="com.google.code.gson:gson:2.8.2"/>
+    <framework src="firestore.gradle" custom="true" type="gradleReference"/>
+
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/ActionHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/CollectionAddHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/CollectionGetHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/CollectionOnSnapshotHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/CollectionUnsubscribeHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/DocGetHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/DocDeleteHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/DocOnSnapshotHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/DocSetHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/DocUnsubscribeHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/DocUpdateHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/EndAtQueryHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/EndBeforeQueryHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/FirestorePlugin.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/InitialiseHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/JSONDateWrapper.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/JSONTimestampWrapper.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/JSONGeopointWrapper.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/JSONHelper.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/LimitQueryHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/OrderByQueryHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/PluginResultHelper.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/QueryHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/QueryHelper.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/StartAfterQueryHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/StartAtQueryHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/WhereQueryHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/FieldValueHelper.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/RunTransactionHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/TransactionDocGetHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/TransactionDocSetHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/TransactionDocDeleteHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/TransactionDocUpdateHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/TransactionQueue.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/TransactionResolveHandler.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/DocSetOptions.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/TransactionDetails.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/TransactionOperationType.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+    <source-file src="src/android/uk/co/reallysmall/cordova/plugin/firestore/FirestoreLog.java" target-dir="src/uk/co/reallysmall/cordova/plugin/firestore"/>
+
+  </platform>
+
+  <platform name="ios">
+    <js-module src="www/android_ios/firestore.js" name="Firestore">
+      <clobbers target="Firestore"/>
+    </js-module>
+    <js-module src="www/android_ios/collection_reference.js" name="collection_reference"/>
+    <js-module src="www/android_ios/query.js" name="query"/>
+    <js-module src="www/android_ios/document_reference.js" name="document_reference"/>
+    <js-module src="www/android_ios/document_snapshot.js" name="document_snapshot"/>
+    <js-module src="www/android_ios/query_snapshot.js" name="query_snapshot"/>
+    <js-module src="www/android_ios/query_document_snapshot.js" name="query_document_snapshot"/>
+    <js-module src="www/android_ios/firestore_timestamp.js" name="firestore_timestamp"/>
+    <js-module src="www/android_ios/transaction.js" name="transaction"/>
+    <js-module src="www/android_ios/utilities.js" name="utilities"/>
+    <js-module src="www/android_ios/geo_point.js" name="geo_point" />
+    <js-module src="www/android_ios/path.js" name="path" />
+    <js-module src="www/android_ios/utils.js" name="utils" />
+
+    <config-file target="config.xml" parent="/*">
+      <feature name="Firestore">
+        <param name="ios-package" value="FirestorePlugin" onload="true"/>
+      </feature>
+    </config-file>
+
+    <podspec>
+      <config>
+        <source url="https://github.com/CocoaPods/Specs.git"/>
+      </config>
+      <pods use-frameworks="true">
+        <pod name="FirebaseFirestore" />
+      </pods>
+    </podspec>
+
+    <header-file src="src/ios/FirestorePlugin.h"/>
+    <source-file src="src/ios/FirestorePlugin.m"/>
+    <header-file src="src/ios/FirestorePluginJSONHelper.h"/>
+    <source-file src="src/ios/FirestorePluginJSONHelper.m"/>
+    <header-file src="src/ios/FirestorePluginResultHelper.h"/>
+    <source-file src="src/ios/FirestorePluginResultHelper.m"/>
+    <header-file src="src/ios/FirestoreTransaction.h"/>
+    <source-file src="src/ios/FirestoreTransaction.m"/>
+  </platform>
+
+</plugin>

@@ -1,13 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.hardik.bapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.hardik.myapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="Device">
-        <param name="android-package" value="org.apache.cordova.device.Device" />
+    <feature name="Firestore">
+        <param name="android-package" value="uk.co.reallysmall.cordova.plugin.firestore.FirestorePlugin" />
+        <param name="onload" value="true" />
     </feature>
-    <name>bapp</name>
+    <name>bicycle</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>

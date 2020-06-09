@@ -1,9 +1,9 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "bapp",
-  "short_name": "bapp",
-  "version": "com.hardik.bapp",
+  "name": "bicycle",
+  "short_name": "bicycle",
+  "version": "com.hardik.myapp",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "author": "Apache Cordova Team",
   "icons": [],

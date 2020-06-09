@@ -7,14 +7,11 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-console": {
-      "PACKAGE_NAME": "com.hardik.bapp"
-    },
-    "cordova-plugin-device": {
-      "PACKAGE_NAME": "com.hardik.bapp"
-    },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.hardik.bapp"
+      "PACKAGE_NAME": "com.hardik.myapp"
+    },
+    "cordova-plugin-firestore": {
+      "PACKAGE_NAME": "com.hardik.myapp"
     }
   },
   "dependent_plugins": {}
