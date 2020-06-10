@@ -71,8 +71,11 @@ db.collection("All")
             return `
             <ion-card>
   <ion-card-header>
+    <div style="text-align:center">
     <ion-card-subtitle>$78</ion-card-subtitle>
     <ion-card-title>${data.id}</ion-card-title>
+    </div>
+    
   </ion-card-header>
    <img src = ${data.data().img}>
    <div style="text-align: center">
