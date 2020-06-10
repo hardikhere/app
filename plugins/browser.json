@@ -9,9 +9,6 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.hardik.myapp"
-    },
-    "cordova-plugin-firestore": {
-      "PACKAGE_NAME": "com.hardik.myapp"
     }
   },
   "dependent_plugins": {}

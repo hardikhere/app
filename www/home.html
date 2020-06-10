@@ -8,22 +8,33 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
+       
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
         <title>Home</title>
     </head>
     <body>
+      <div id="invoiceModal" style="
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+      ">
+
+      </div>
         <div class="app">
 
             <div id="deviceready" >
-                
-                <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
-                <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+              <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+              <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+              <div class="listening">loading</div>
+              <div class="event received">
+               
            
                 <ion-grid>
                     <ion-row>
                         <ion-col>
-                            <ion-segment scrollable value="cycles">
+                            <ion-segment scrollable value="cycles" id="SegmentHead">
                                 <ion-segment-button value="cycles">
                                   <ion-label>Cycles</ion-label>
                                 </ion-segment-button>
@@ -34,125 +45,175 @@
                         </ion-col>
                     </ion-row>
                    
-                           
-                    
-                </ion-grid>
-                         
+               <div style="text-align: center;">
+                   
+                <ion-spinner id="mainSpinner" class="text-center" name="crescent"></ion-spinner>
+               </div>
                
-                     
-                </div>
-            </div>
-            <ion-content>
-              <ion-spinner id="mainSpinner" class="text-center" name="crescent"></ion-spinner>
+           
+              <h2 class = "error"></h2>
                 <div class="Profile">
                              
                 </div>
-                <ion-infinite-scroll>
-                  <ion-infinite-scroll-content>
-                    <div class="mainContent">
-                             
-                    </div>
-                  </ion-infinite-scroll-content>
-                </ion-infinite-scroll>
-                
-              </ion-content>
-       
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-    </body>
+              
+                    
+                      <ion-scroll scrollY="true">
+                        <div class="mainContent" style="
+                         position:fixed;top:10%;left:0px;bottom:10px;width:100%; overflow-y:auto;
+                        " >
 
-    
-    
-<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
-<script>
-    var main = document.querySelector('.mainContent');
-    var profile = document.querySelector('.Profile');
+                        </div>
+                      </ion-scroll>
+                      
+                            <script>
+                              "use strict";
+                              
+var assigned = [];
 
-    const firebaseConfig = {
-apiKey: "AIzaSyDNaNRZSLk96eHP9_4JQ7HYubpCnVq8IAc",
-authDomain: "bicycle-app-f3005.firebaseapp.com",
-databaseURL: "https://bicycle-app-f3005.firebaseio.com",
-projectId: "bicycle-app-f3005",
-storageBucket: "bicycle-app-f3005.appspot.com",
-messagingSenderId: "19986827976",
-appId: "1:19986827976:web:41f47defbff90c481b33fd"
+var handleAssign = (e)=>{
+     e.preventDefault();
+     console.log( e.target);
+     if(assigned.indexOf(e.target.id)===-1)assigned.push(e.target.id);
+     console.log(assigned);
+     console.log(`u${e.target.id}`);
+     console.log(`${e.target.id}`);
+
+     var unassign = document.getElementById(`u${e.target.id}`);
+     var assign = document.getElementById(`${e.target.id}`);
+     var checkout = document.getElementById("checkout");
+
+     assign.style.display = "none";
+     unassign.style.display = "";  
+     if(assigned.length>0)checkout.style.display = ""; 
+     else    checkout.style.display = "none";
 };
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const cycles = [];
-var newCardList;
 
-db.collection("All")
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            cycles.push(doc);
-        });
-        console.log(cycles);
-        var cardList = cycles.map(data =>{
-            return `
-            <ion-card>
-  <ion-card-header>
-    <ion-card-subtitle>$78</ion-card-subtitle>
-    <ion-card-title>${data.id}</ion-card-title>
-  </ion-card-header>
-   <img src = ${data.data().img}>
-   <ion-button> Assign</ion-button>
-</ion-card>
-            `
-        }).join(" ");
-        main.innerHTML = cardList;
-        newCardList = cardList;
-        const mainSpinner = document.querySelector("#mainSpinner");
-        mainSpinner.style.display = "none";
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
-
-
-    const segments = document.querySelectorAll('ion-segment');
-    
-    var storage = window.localStorage;
-    var profileCard = `
-    
-    <ion-card>
-       <ion-row>
-        <ion-col size="3">
-            <ion-avatar class="ion-margin-start">
-           <img src="img/avatar.svg">
-           </ion-avatar>
-        </ion-col>
-        
-       
-        <ion-col>
-  <ion-card-header>
-    <ion-card-subtitle>${storage.getItem("UserEmail")}</ion-card-subtitle>
-    <ion-card-title>${storage.getItem("UserName")}</ion-card-title>
-  </ion-card-header>
-
-  <ion-card-content>
-     No cycle assigned
-  </ion-card-content>
-  </ion-col>
-</ion-row>
-</ion-card>
-    `;
-for (let i = 0; i < segments.length; i++) {
-  segments[i].addEventListener('ionChange', (ev) => {
-    if( ev.detail.value==="profile"){
-        main.innerHTML = "";
-        profile.innerHTML = profileCard;
-    }else {
-        profile.innerHTML = "";
-        main.innerHTML = newCardList;}
-    
-  })
+var handleUnAssign = (e)=>{
+     e.preventDefault();
+  
+     var newAssign= assigned.filter(data=> data!==e.target.id.substring(1,e.target.id.length));
+     assigned = newAssign;
+    console.log(assigned);
+     console.log(e.target.id.substring(1,e.target.id.length));
+     var unassign = document.getElementById(`${e.target.id}`);
+     var assignio = document.getElementById(`${e.target.id.substring(1,e.target.id.length)}`);
+     assignio.style.display = "";
+     unassign.style.display = "none"; 
+     if(assigned.length>0)checkout.style.display = "";
+     else    checkout.style.display = "none";
 }
-</script>
+                            </script>
+                            <div id="checkout" onclick="showInvoice()" style="display: none; top: 90%;left: 70%; position: absolute;">
+                            
+                              
+                                <ion-button color="success">Checkout</ion-button>
+                           
+                            </ion-fab>
+                            </div>
+                            <div id="closeInvoice" onclick="removeInvoice()" style="display: none; top: 90%;left: 38%; position: absolute; z-index: 3;">
+                            
+                              
+                              <ion-button color="danger">Close</ion-button>
+                         
+                          </ion-fab>
+                          </div>
+                           
+                          </ion-grid>
+                    </div>
+               </div>
+             </div>
+            </div>
+            <script type="text/javascript" src="cordova.js"></script>
+              <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+              <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+              <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+        
+              <script type="text/javascript" src="js/home.js"></script>
+ </body>
+
+ 
+  <script >
+  
+ var  getAssignedData = ()=>{
+    var storage = window.localStorage;
+    var list = JSON.parse(storage.getItem("AllList")) ;
+    console.log('list data is',JSON.stringify(list));  
+    console.log(typeof list);
+     var assignedData = list.filter((data,ind)=>{
+        if(assigned.indexOf("a-"+data.id)!==-1){
+          return true;
+        }else return false;
+  });
+  console.log('assigned data is',assignedData);
+  return assignedData;
+  };
+
+  var showInvoice  = ()=>{
+    var head = document.getElementById("SegmentHead");
+    var checkout= document.getElementById("checkout");
+    checkout.style.display = "none";
+
+    head.style.zIndex = -1;
+    var content =`
+    <ion-header translucent>
+          <ion-toolbar>
+            <ion-title>Invoice</ion-title>
+            <ion-buttons slot="end">
+              <h3> $${assigned.length*78}</h3>
+            </ion-buttons>
+            
+          </ion-toolbar>
+        </ion-header>
+       
+          
+        <ion-content fullscreen>
+          <ion-list>
+          ${   
+              getAssignedData().map((data)=>{
+                  return (
+                   ` <ion-item>
+                    <ion-avatar slot="start">
+                      <ion-img src=${data.img} />
+                    </ion-avatar>
+                    <ion-label>
+                      <h2>${data.name}</h2>
+                      <p>Sneaky little hobbitses!</p>
+                    </ion-label>
+                  </ion-item>`
+                  )
+              }).join(' ')
+          }
+            
+            
+          </ion-list>
+        </ion-content>
+      `;
+      var invoiceModal = document.getElementById("invoiceModal");
+      var close = document.getElementById("closeInvoice");
+      invoiceModal.style.zIndex = 1;
+      invoiceModal.innerHTML = content;
+      close.style.display = "";
+     
+      
+  }
+
+  var removeInvoice = ()=>{
+    var head = document.getElementById("SegmentHead");
+    head.style.zIndex = 1;
+    var invoiceModal = document.getElementById("invoiceModal");
+    var close = document.getElementById("closeInvoice");
+    invoiceModal.style.zIndex = -1;
+    close.style.display="none";
+      invoiceModal.innerHTML = "";
+      var checkout= document.getElementById("checkout");
+    checkout.style.display = "";
+  }
+  
+
+  
+
+
+  </script>
+
 
 </html>
