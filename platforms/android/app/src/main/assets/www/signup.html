@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/ionic.esm.js"></script>
-  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/ionic.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@next/css/ionic.bundle.css" />
+  <script></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Login</title>
-  <!-- MDB icon -->
- <!-- <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon"> -->
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-  <!-- Google Fonts Roboto -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+  <title>signup</title>
+ 
 
   <!-- my stylesheet-->
     <style type="text/css">
@@ -29,51 +19,69 @@
     </style>
 </head>
 <body>
-
-  <!-- Start your project here--> 
-
-  <!-- Navbar --> 
-
-
-<!-- top wrapper-->  
+   
+    
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@next/css/ionic.bundle.css" />
+  <div class="app">
+    <div id="deviceready" >
 <ion-grid>
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title size="large">Signup</ion-title>
+      <div style="text-align: center;">
+        <ion-title size="large" style="font-size: xx-large; color: dodgerblue;">Signup</ion-title>
+      </div>
+      
     </ion-toolbar>
   
   </ion-header>
- 
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input id="email" placeholder="Enter Email"></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input id="password" placeholder="Enter Password"></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
+   <div style="margin-top: 30px;">
+    <ion-row>
+      <ion-col>
+        <div id="errorMsg" style="text-align: center;color: dodgerblue;">
+
+        </div>
+        <div style="text-align: center;">
+          <ion-spinner id="spinner"  name="circles" color="primary" style="
+          display: none;"></ion-spinner>
+         </div>
+        <ion-item>
+          <ion-label position="floating" style="font-size: larger;">Email</ion-label>
+          <ion-input id="email" type="email" style="font-size: x-large; color: dodgerblue;" placeholder="Enter Email"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" style="font-size: larger;">Password</ion-label>
+          <ion-input id="password" type="password" style="font-size: x-large; color: dodgerblue;" placeholder="Enter Password"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+   </div>
+  
     <ion-col>
       
-        
-        <ion-button onclick="handleSubmit(event)" color="primary">Signup</ion-button>
-   
+        <div style="text-align: center;">
+          <ion-button onclick="handleSubmit(event)" style="font-size: x-large;" color="primary">Signup</ion-button>
+          <a href="index.html">
+            <ion-button  style="font-size: x-large;" 
+            color="danger">Back</ion-button>
+          </a>
+          
+        </div>
+       
     </ion-col>
   </ion-row>
 </ion-grid>
-
-
+</div>
+</div>
 <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
@@ -88,14 +96,44 @@
     appId: "1:19986827976:web:41f47defbff90c481b33fd"
     };
     firebase.initializeApp(firebaseConfig);
-    </script>
-
     
 
+var ids = {
+    email: document.getElementById("email"),
+    password:document.getElementById("password"),
+    Error:document.getElementById("errorMsg"),
+    spinner:document.getElementById("spinner")
+   
+};
 
-  
-  <!-- Your custom scripts (optional) -->
-  <script type="text/javascript" src="js/handleSignup.js"></script>
+
+
+const handleSubmit = (e)=>{
+    e.preventDefault();
+    ids.spinner.style.display = "";
+    const email = ids.email.value;
+    const pass = ids.password.value;
+    firebase.auth().createUserWithEmailAndPassword(email, pass)
+    .then(user=>{
+    
+        window.location.href = "index.html";
+        ids.spinner.style.display = "none";
+    })
+    .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        ids.Error.innerHTML = errorMessage;
+        ids.spinner.style.display = "none";
+        
+        // ...
+      });
+};
+    </script>
+   <script type="text/javascript" src="cordova.js"></script>
+   <script type="text/javascript" src="js/signup.js"></script>
+   
+   
 
 </body>
 </html>

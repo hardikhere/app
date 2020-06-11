@@ -15,6 +15,7 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
+        navigator.splashscreen.show();
         this.receivedEvent('deviceready');
     },
 
@@ -53,13 +54,10 @@ db.collection("All")
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+        
             cycles.push(doc);
         });
-       
-        console.log(cycles);
-       
+   
         var cardList = cycles.map((data,ind) =>{
              glodalList.push({
                 img:data.data().img,
@@ -67,7 +65,7 @@ db.collection("All")
                 id:ind
             });
             storage.setItem("AllList",JSON.stringify( glodalList));
-            console.log("glodalList is", glodalList);
+       
             return `
             <ion-card>
   <ion-card-header>
@@ -79,8 +77,12 @@ db.collection("All")
   </ion-card-header>
    <img src = ${data.data().img}>
    <div style="text-align: center">
-   <button onclick="handleAssign(event)" value =${ind} id=a-${ind} style=" height:40px; width:80px; padding:5px; font-size:16px; color:white;background-color:dodgerblue;"> Assign</button>
-   <button onclick="handleUnAssign(event)"  id=ua-${ind} style=" height:40px; width:80px; padding:5px; font-size:16px; color:white;background-color:#E74E36 ;display:none"> Unassign</button>
+   <button onclick="handleAssign(event)" value =${ind} id=a-${ind} style=" 
+   height:40px; width:80px; padding:5px; font-size:16px; color:white;border-radius: 25px;padding: 3px;
+   background-color:dodgerblue; "> Assign</button>
+   <button onclick="handleUnAssign(event)"  id=ua-${ind} style="
+    height:40px; width:80px; padding:5px;border-radius: 25px;padding:3px;
+     font-size:16px; color:white;background-color:#E74E36 ;display:none"> Unassign</button>
    </div>
    </ion-card>
             `
@@ -91,10 +93,10 @@ db.collection("All")
         mainSpinner.style.display = "none";
     })
     .catch(function(err) {
-        console.log("Error getting documents: ", err);
+       
         error.innerHTML = err;
     });
-
+    navigator.splashscreen.hide();
 
     var segments = document.querySelectorAll('ion-segment');
     
@@ -117,10 +119,6 @@ db.collection("All")
     <ion-button>Signout</ion-button></a>
   </ion-card-header>
    
-  <ion-card-content>
-    
-     No cycle assigned
-  </ion-card-content>
   </ion-col>
  
 </ion-row>
@@ -139,7 +137,6 @@ for (var i = 0; i < segments.length; i++) {
   })
 }
 
-        console.log('Received Event: ' + id);
     }
     
 };

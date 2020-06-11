@@ -2,7 +2,9 @@
 
 <html>
     <head>
-      
+      <style>
+       
+      </style>
         <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob:
          data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;">
         <meta name="format-detection" content="telephone=no">
@@ -14,9 +16,9 @@
     </head>
     <body>
         <div class="app">
-
+          
             <div id="deviceready">
-                
+             
                 <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
                 <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
            
@@ -29,7 +31,7 @@
                               <ion-back-button></ion-back-button>
                             </ion-buttons>
                             <div style="text-align: center;">
-                              <ion-title size="large" color="primary" style="font-size: xx-large;">Login</ion-title>
+                              <ion-title size="large" color="primary" style="font-size: xx-large ;">Login</ion-title>
                             </div>
                             
                             
@@ -81,6 +83,8 @@
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+       
+
     </body>
 
     
@@ -102,7 +106,7 @@ firebase.initializeApp(firebaseConfig);
 var handleSigninBtn= (e)=>{
     e.preventDefault();
     document.getElementById('spinner').style.display = "block";
-    console.log("clicked");
+   
     var email = document.getElementById("emailLogin").value;
     var pass = document.getElementById("passwordLogin").value;
     var errorMsg = document.getElementById("errorMsg");
@@ -110,14 +114,12 @@ var handleSigninBtn= (e)=>{
    
     firebase.auth().signInWithEmailAndPassword(email, pass)
     .then(user=>{
-        console.log(user);
-        console.log("logedin");
+       
         var storage = window.localStorage;
         storage.setItem("UserEmail",user.user.email );
         if(user.user.displayName) storage.setItem("UserName",user.user.displayName );
         else storage.setItem("UserName",user.user.email.split('@')[0] );
-        console.log("saved in local ",storage.getItem("UserEmail"));
-        console.log("saved in local ",storage.getItem("UserName"));
+      
 
         document.getElementById('spinner').style.display = "none";
         window.location.href = "home.html";
@@ -125,7 +127,7 @@ var handleSigninBtn= (e)=>{
     })
     .catch(function(error) {
         // Handle Errors here.
-        console.log(error.message);
+     
         var errorCode = error.code;
         var errorMessage = error.message;
         errorMsg.innerHTML = errorMessage;
@@ -134,4 +136,6 @@ var handleSigninBtn= (e)=>{
       });
 }
 </script>
+
+
 </html>

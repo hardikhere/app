@@ -2,25 +2,26 @@
 
 <html>
     <head>
-      
+      <style>
+       
+      </style>
         <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob:
          data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
+       
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
         <title>Login</title>
     </head>
     <body>
         <div class="app">
-
-            <div id="deviceready" >
-                
+          
+            <div id="deviceready">
+             
                 <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
                 <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
            
-                <p class="event listening">Connecting to Device</p>
                 <div class="event received">
                     <ion-grid>
                        
@@ -29,34 +30,49 @@
                             <ion-buttons slot="start">
                               <ion-back-button></ion-back-button>
                             </ion-buttons>
-                            <ion-title size="large">Login</ion-title>
+                            <div style="text-align: center;">
+                              <ion-title size="large" color="primary" style="font-size: xx-large ;">Login</ion-title>
+                            </div>
+                            
                             
                           </ion-toolbar>
                         
                         </ion-header>
-                        <ion-spinner id="spinner" name="circles" color="primary" style="
-                        display: none;"></ion-spinner>
+
+                           <div id="errorMsg" style="color: dodgerblue;text-align: center;">
+
+                           </div>
+                           <div style="text-align: center;margin-left: 50%;">
+                            <ion-spinner id="spinner"  name="circles" color="primary" style="
+                            display: none;"></ion-spinner>
+                           </div>
+                       
+                        <div style="margin-top: 50px;">
+                          <ion-row>
+                            <ion-col>
+                              <ion-item>
+                                <ion-label position="floating"  style="font-size: larger;">Email</ion-label>
+                                <ion-input id="emailLogin" type="email" color="primary" placeholder="Enter Email" style="font-size: x-large;"></ion-input>
+                              </ion-item>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row>
+                            <ion-col>
+                              <ion-item>
+                                <ion-label position="floating" style="font-size: larger;">Password</ion-label>
+                                <ion-input id="passwordLogin" type="password" color="primary" style="font-size: x-large;" placeholder="Enter Password"></ion-input>
+                              </ion-item>
+                            </ion-col>
+                          </ion-row>
+                        </div>
+                       
                         <ion-row>
                           <ion-col>
-                            <ion-item>
-                              <ion-label position="floating">Email</ion-label>
-                              <ion-input id="emailLogin" placeholder="Enter Email"></ion-input>
-                            </ion-item>
-                          </ion-col>
-                        </ion-row>
-                        <ion-row>
-                          <ion-col>
-                            <ion-item>
-                              <ion-label position="floating">Password</ion-label>
-                              <ion-input id="passwordLogin" placeholder="Enter Password"></ion-input>
-                            </ion-item>
-                          </ion-col>
-                        </ion-row>
-                        <ion-row>
-                          <ion-col>
-                            
-                              <ion-button onclick="handleSigninBtn(event)" color="primary">Login</ion-button>
-                              <ion-button href="signup.html" color="primary">Signup</ion-button>
+                            <div style="text-align: center;">
+                              <ion-button onclick="handleSigninBtn(event)" color="primary" style="font-size: x-large;">Login</ion-button>
+                              <ion-button href="signup.html" color="primary" style="font-size: x-large;">Signup</ion-button>
+                            </div>
+                             
                             
                           </ion-col>
                         </ion-row>
@@ -67,6 +83,8 @@
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+       
+
     </body>
 
     
@@ -85,35 +103,39 @@ messagingSenderId: "19986827976",
 appId: "1:19986827976:web:41f47defbff90c481b33fd"
 };
 firebase.initializeApp(firebaseConfig);
-const handleSigninBtn= (e)=>{
+var handleSigninBtn= (e)=>{
     e.preventDefault();
-    document.querySelector('#spinner').style.display = "block";
-    console.log("clicked");
-    const email = document.querySelector("#emailLogin").value;
-    const pass = document.querySelector("#passwordLogin").value;
+    document.getElementById('spinner').style.display = "block";
+   
+    var email = document.getElementById("emailLogin").value;
+    var pass = document.getElementById("passwordLogin").value;
+    var errorMsg = document.getElementById("errorMsg");
+
+   
     firebase.auth().signInWithEmailAndPassword(email, pass)
     .then(user=>{
-        console.log(user);
-        console.log("logedin");
+       
         var storage = window.localStorage;
         storage.setItem("UserEmail",user.user.email );
         if(user.user.displayName) storage.setItem("UserName",user.user.displayName );
         else storage.setItem("UserName",user.user.email.split('@')[0] );
-        console.log("saved in local ",storage.getItem("UserEmail"));
-        console.log("saved in local ",storage.getItem("UserName"));
+      
 
-        document.querySelector('#spinner').style.display = "none";
+        document.getElementById('spinner').style.display = "none";
         window.location.href = "home.html";
 
     })
     .catch(function(error) {
         // Handle Errors here.
-        console.log(error.message);
+     
         var errorCode = error.code;
         var errorMessage = error.message;
-        document.querySelector('#spinner').style.display = "none";
+        errorMsg.innerHTML = errorMessage;
+        document.getElementById('spinner').style.display = "none";
         // ...
       });
 }
 </script>
+
+
 </html>

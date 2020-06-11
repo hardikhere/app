@@ -65,19 +65,14 @@
                         </div>
                       </ion-scroll>
                       
-                            <script>
-                              "use strict";
+                            <script type="text/javascript">
+                              
                               
 var assigned = [];
-
 var handleAssign = (e)=>{
+    
      e.preventDefault();
-     console.log( e.target);
      if(assigned.indexOf(e.target.id)===-1)assigned.push(e.target.id);
-     console.log(assigned);
-     console.log(`u${e.target.id}`);
-     console.log(`${e.target.id}`);
-
      var unassign = document.getElementById(`u${e.target.id}`);
      var assign = document.getElementById(`${e.target.id}`);
      var checkout = document.getElementById("checkout");
@@ -90,11 +85,10 @@ var handleAssign = (e)=>{
 
 var handleUnAssign = (e)=>{
      e.preventDefault();
-  
+   
      var newAssign= assigned.filter(data=> data!==e.target.id.substring(1,e.target.id.length));
      assigned = newAssign;
-    console.log(assigned);
-     console.log(e.target.id.substring(1,e.target.id.length));
+ 
      var unassign = document.getElementById(`${e.target.id}`);
      var assignio = document.getElementById(`${e.target.id.substring(1,e.target.id.length)}`);
      assignio.style.display = "";
@@ -102,7 +96,7 @@ var handleUnAssign = (e)=>{
      if(assigned.length>0)checkout.style.display = "";
      else    checkout.style.display = "none";
 }
-                            </script>
+</script>
                             <div id="checkout" onclick="showInvoice()" style="display: none; top: 90%;left: 70%; position: absolute;">
                             
                               
@@ -137,14 +131,13 @@ var handleUnAssign = (e)=>{
  var  getAssignedData = ()=>{
     var storage = window.localStorage;
     var list = JSON.parse(storage.getItem("AllList")) ;
-    console.log('list data is',JSON.stringify(list));  
-    console.log(typeof list);
+   
      var assignedData = list.filter((data,ind)=>{
         if(assigned.indexOf("a-"+data.id)!==-1){
           return true;
         }else return false;
   });
-  console.log('assigned data is',assignedData);
+
   return assignedData;
   };
 
@@ -177,7 +170,7 @@ var handleUnAssign = (e)=>{
                     </ion-avatar>
                     <ion-label>
                       <h2>${data.name}</h2>
-                      <p>Sneaky little hobbitses!</p>
+                      <p>$78</p>
                     </ion-label>
                   </ion-item>`
                   )
