@@ -88,3 +88,7 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+body{
+    background: rgb(250,105,105);
+background: linear-gradient(90deg, rgba(250,105,105,0.5578606442577031) 0%, rgba(255,189,19,0.5662640056022409) 97%);
+}

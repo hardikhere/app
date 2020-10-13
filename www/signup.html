@@ -86,15 +86,15 @@
     <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
     <script>
-        const firebaseConfig = {
-    apiKey: "AIzaSyDNaNRZSLk96eHP9_4JQ7HYubpCnVq8IAc",
-    authDomain: "bicycle-app-f3005.firebaseapp.com",
-    databaseURL: "https://bicycle-app-f3005.firebaseio.com",
-    projectId: "bicycle-app-f3005",
-    storageBucket: "bicycle-app-f3005.appspot.com",
-    messagingSenderId: "19986827976",
-    appId: "1:19986827976:web:41f47defbff90c481b33fd"
-    };
+         var firebaseConfig = {
+            apiKey: "AIzaSyC7qvTJaOTpkYAkBLgfgvJTI2xjUofr2tE",
+            authDomain: "foodplanner-be200.firebaseapp.com",
+            databaseURL: "https://foodplanner-be200.firebaseio.com",
+            projectId: "foodplanner-be200",
+            storageBucket: "foodplanner-be200.appspot.com",
+            messagingSenderId: "735315343676",
+            appId: "1:735315343676:web:83d367f65d4b40f6b40639"
+        };
     firebase.initializeApp(firebaseConfig);
     
 
@@ -108,16 +108,26 @@ var ids = {
 
 
 
-const handleSubmit = (e)=>{
+var handleSubmit = (e)=>{
     e.preventDefault();
     ids.spinner.style.display = "";
-    const email = ids.email.value;
-    const pass = ids.password.value;
+    var email = ids.email.value;
+    var pass = ids.password.value;
     firebase.auth().createUserWithEmailAndPassword(email, pass)
     .then(user=>{
         console.log(user);
-        window.location.href = "index.html";
-        ids.spinner.style.display = "none";
+        var db = firebase.firestore();
+        db.collection("users").add({
+          Email:email
+        }).then(u=>{
+          console.log("added",u.id)
+           window.location.href = "index.html";
+           ids.spinner.style.display = "none";
+        }).catch(e=>{
+          window.location.href = "index.html";
+           ids.spinner.style.display = "none";
+        })
+        
     })
     .catch(function(error) {
         // Handle Errors here.

@@ -1,8 +1,8 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "bicycle",
-  "short_name": "bicycle",
+  "name": "Food Planner",
+  "short_name": "Food Planner",
   "version": "com.hardik.myapp",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "author": "Apache Cordova Team",

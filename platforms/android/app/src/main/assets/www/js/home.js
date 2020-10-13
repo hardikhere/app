@@ -49,13 +49,7 @@ var app = {
 `;      
 
 
-       var scheduler = `
-       <ion-item>
-       <ion-label>Start Time</ion-label>
-       <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
-       </ion-item>
-       
-       `;
+
 
         var listeneing = document.querySelector(".listening");
         listeneing.innerHTML = "loaded device";
@@ -86,8 +80,10 @@ var app = {
             segments[i].addEventListener('ionChange', (ev) => {
                 if (ev.detail.value === "profile") {
                     profile.style.display = "";
+                    main.style.display = "none";
                     planner.style.display = "none";
                 } else if (ev.detail.value === "cycles") {
+                    window.location.reload();
                     main.style.display = "";
                     profile.style.display = "none";
                     planner.style.display = "none";
@@ -96,11 +92,11 @@ var app = {
                     main.style.display = "none";
                     profile.style.display = "none";
                     planner.style.display = "";
-                    planner.innerHTML = scheduler;
                 }
 
             })
         }
+        
 
         var db = firebase.firestore();
         var loader = document.getElementById("loader");
@@ -108,14 +104,17 @@ var app = {
         db.collection("users").where("Email", "==", window.localStorage.getItem("UserEmail"))
             .get()
             .then(snap => {
-                var cards = "";
+                var cards = "<div style='text-align:center'><h3>Your Schedule</h3> <img style='width:10%; height:10%' src='img/oops.png' /></div>";
+                window.localStorage.setItem("uid",snap.docs[0].id);
+                console.log(snap.docs[0].id);
                 db.collection("users").doc(snap.docs[0].id).collection("foodPlan").get().then(e => {
+                    
                     e.docs.forEach(el => {
                         console.log(el.data());
                         var dayMenu = "";
                         var obj = el.data();
                         for (var pro in obj) {
-                            dayMenu += `${pro.toString()}--${obj[pro].map(el => el)}`
+                            dayMenu += `<div>${pro.toString()} -- ${obj[pro].map(el => el)}</div>`
                         }
                         cards = cards + `
                       <ion-card>
@@ -124,19 +123,58 @@ var app = {
                     </ion-card-header>
                      
                     <ion-card-content>
-                       ${dayMenu
-
-                            }
+                       ${dayMenu}
                     </ion-card-content>
                   </ion-card>
                     `;
                     })
-                    main.innerHTML = cards;
+                    var defaultMsg = `
+                    <ion-card>
+                    <ion-card-title>Welcome</ion-card-title>
+                    <img style="width:60%; height:60%" src="img/oops.png" />
+                    <ion-card-content>Looks like You have not created Schedule</ion-card-content>
+                       
+                       <ion-button id="takeTocreate">Create</ion-button>
+                    </ion-card>
+
+                `;
+               
+                  if(cards==="") {
+                      main.innerHTML = defaultMsg;
+                      document.getElementById("takeTocreate").addEventListener("click",()=>{
+                        document.getElementById("SegmentHead").value= "scheduler";
+                       })
+                    }
+                  else  main.innerHTML = cards;
                     loader.style.display = "none";
                 })
 
-            })
+            });
+        
+           
 
+        function submitPlanner(){
+            var hours = document.getElementById("hours");
+            var min = document.getElementById("minutes");
+            var day = document.getElementById("day");
+            var foodArr = window.localStorage.getItem("foodArr").split(",");
+            var uid = window.localStorage.getItem("uid");
+            db.collection("users").doc(uid).collection("foodPlan").doc(day.value).set({
+                [`${hours.value}:${min.value}`]:foodArr
+            },{merge:true}).then(val=>{
+                
+                 window.location.reload();
+                  
+            })
+            console.log({
+                hours:hours.value,
+                min:min.value,
+                day:day.value,
+                foodArr
+            })
+        }
+        var mybtn = document.getElementById("mybtn");
+        mybtn.addEventListener("click",submitPlanner);
 
 
     }
