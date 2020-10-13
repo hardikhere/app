@@ -7,10 +7,13 @@
     "files": {}
   },
   "installed_plugins": {
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.hardik.myapp"
+    },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.hardik.myapp"
     },
-    "cordova-plugin-splashscreen": {
+    "cordova-plugin-browsersync": {
       "PACKAGE_NAME": "com.hardik.myapp"
     }
   },

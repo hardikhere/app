@@ -36,7 +36,10 @@
                         <ion-col>
                             <ion-segment scrollable value="cycles" id="SegmentHead">
                                 <ion-segment-button value="cycles">
-                                  <ion-label>Cycles</ion-label>
+                                  <ion-label>Food Plan</ion-label>
+                                </ion-segment-button>
+                                <ion-segment-button value="scheduler">
+                                  <ion-label>Scheduler</ion-label>
                                 </ion-segment-button>
                                 <ion-segment-button value="profile">
                                   <ion-label>Profile</ion-label>
@@ -45,74 +48,24 @@
                         </ion-col>
                     </ion-row>
                    
-               <div style="text-align: center;">
+               <div id="loader" style="text-align: center;">
                    
-                <ion-spinner id="mainSpinner" class="text-center" name="crescent"></ion-spinner>
+                  <ion-spinner id="mainSpinner" class="text-center " name="crescent"></ion-spinner>
                </div>
                
            
               <h2 class = "error"></h2>
-                <div class="Profile">
+                <div class="Profile" style="display: none;">
                              
                 </div>
-              
-                    
-                      <ion-scroll scrollY="true">
-                        <div class="mainContent" style="
-                         position:fixed;top:10%;left:0px;bottom:10px;width:100%; overflow-y:auto;
-                        " >
+                <div class="mainContent" style="text-align: center;">
+                    <h3>Your Weekly Schedule</h3>
+                </div>
+                <div id="planner">
 
-                        </div>
-                      </ion-scroll>
-                      
-                            <script type="text/javascript">
-                              
-                              
-var assigned = [];
-var handleAssign = (e)=>{
-    
-     e.preventDefault();
-     if(assigned.indexOf(e.target.id)===-1)assigned.push(e.target.id);
-     var unassign = document.getElementById(`u${e.target.id}`);
-     var assign = document.getElementById(`${e.target.id}`);
-     var checkout = document.getElementById("checkout");
-
-     assign.style.display = "none";
-     unassign.style.display = "";  
-     if(assigned.length>0)checkout.style.display = ""; 
-     else    checkout.style.display = "none";
-};
-
-var handleUnAssign = (e)=>{
-     e.preventDefault();
-   
-     var newAssign= assigned.filter(data=> data!==e.target.id.substring(1,e.target.id.length));
-     assigned = newAssign;
- 
-     var unassign = document.getElementById(`${e.target.id}`);
-     var assignio = document.getElementById(`${e.target.id.substring(1,e.target.id.length)}`);
-     assignio.style.display = "";
-     unassign.style.display = "none"; 
-     if(assigned.length>0)checkout.style.display = "";
-     else    checkout.style.display = "none";
-}
-</script>
-                            <div id="checkout" onclick="showInvoice()" style="display: none; top: 90%;left: 70%; position: absolute;">
-                            
-                              
-                                <ion-button color="success">Checkout</ion-button>
-                           
-                            </ion-fab>
-                            </div>
-                            <div id="closeInvoice" onclick="removeInvoice()" style="display: none; top: 90%;left: 38%; position: absolute; z-index: 3;">
-                            
-                              
-                              <ion-button color="danger">Close</ion-button>
-                         
-                          </ion-fab>
-                          </div>
-                           
-                          </ion-grid>
+                </div>
+                     
+              </ion-grid>
                     </div>
                </div>
              </div>
@@ -123,90 +76,5 @@ var handleUnAssign = (e)=>{
               <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
         
               <script type="text/javascript" src="js/home.js"></script>
- </body>
-
- 
-  <script >
-  
- var  getAssignedData = ()=>{
-    var storage = window.localStorage;
-    var list = JSON.parse(storage.getItem("AllList")) ;
-   
-     var assignedData = list.filter((data,ind)=>{
-        if(assigned.indexOf("a-"+data.id)!==-1){
-          return true;
-        }else return false;
-  });
-
-  return assignedData;
-  };
-
-  var showInvoice  = ()=>{
-    var head = document.getElementById("SegmentHead");
-    var checkout= document.getElementById("checkout");
-    checkout.style.display = "none";
-
-    head.style.zIndex = -1;
-    var content =`
-    <ion-header translucent>
-          <ion-toolbar>
-            <ion-title>Invoice</ion-title>
-            <ion-buttons slot="end">
-              <h3> $${assigned.length*78}</h3>
-            </ion-buttons>
-            
-          </ion-toolbar>
-        </ion-header>
-       
-          
-        <ion-content fullscreen>
-          <ion-list>
-          ${   
-              getAssignedData().map((data)=>{
-                  return (
-                   ` <ion-item>
-                    <ion-avatar slot="start">
-                      <ion-img src=${data.img} />
-                    </ion-avatar>
-                    <ion-label>
-                      <h2>${data.name}</h2>
-                      <p>$78</p>
-                    </ion-label>
-                  </ion-item>`
-                  )
-              }).join(' ')
-          }
-            
-            
-          </ion-list>
-        </ion-content>
-      `;
-      var invoiceModal = document.getElementById("invoiceModal");
-      var close = document.getElementById("closeInvoice");
-      invoiceModal.style.zIndex = 1;
-      invoiceModal.innerHTML = content;
-      close.style.display = "";
-     
-      
-  }
-
-  var removeInvoice = ()=>{
-    var head = document.getElementById("SegmentHead");
-    head.style.zIndex = 1;
-    var invoiceModal = document.getElementById("invoiceModal");
-    var close = document.getElementById("closeInvoice");
-    invoiceModal.style.zIndex = -1;
-    close.style.display="none";
-      invoiceModal.innerHTML = "";
-      var checkout= document.getElementById("checkout");
-    checkout.style.display = "";
-  }
-  
-
-  
-
-
-  </script>
-
-
+  </body>
 </html>

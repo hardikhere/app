@@ -1,144 +1,146 @@
 
-var glodalList =[];
-var storage = window.localStorage;
+var glodalList = [];
+
+
 
 var app = {
     // Application varructor
-    initialize: function() {
+    initialize: function () {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
-    
+
 
 
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
-    onDeviceReady: function() {
+    onDeviceReady: function () {
         navigator.splashscreen.show();
         this.receivedEvent('deviceready');
     },
 
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var listeneing = document.querySelector(".listening");
-        listeneing.innerHTML="loaded device";
-        listeneing.style.display="none";
-          
-   var assigned = [];
+    receivedEvent: async function (id) {
+        var storage = window.localStorage;
 
-
-  
-
-    var main = document.querySelector('.mainContent');
-    
-    var error = document.querySelector('.error');
-
-    var profile = document.querySelector('.Profile');
-
-    var firebaseConfig = {
-apiKey: "AIzaSyDNaNRZSLk96eHP9_4JQ7HYubpCnVq8IAc",
-authDomain: "bicycle-app-f3005.firebaseapp.com",
-databaseURL: "https://bicycle-app-f3005.firebaseio.com",
-projectId: "bicycle-app-f3005",
-storageBucket: "bicycle-app-f3005.appspot.com",
-messagingSenderId: "19986827976",
-appId: "1:19986827976:web:41f47defbff90c481b33fd"
-};
-firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
-var cycles = [];
-var newCardList;
-"use strict";
-db.collection("All")
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-        
-            cycles.push(doc);
-        });
+        var profileCard = `
+<ion-card>
+   <ion-row>
+    <ion-col size="3">
+        <ion-avatar class="ion-margin-start">
+       <img src="img/avatar.svg">
+       </ion-avatar>
+    </ion-col>
    
-        var cardList = cycles.map((data,ind) =>{
-             glodalList.push({
-                img:data.data().img,
-                name:data.id,
-                id:ind
-            });
-            storage.setItem("AllList",JSON.stringify( glodalList));
-       
-            return `
-            <ion-card>
-  <ion-card-header>
-    <div style="text-align:center">
-    <ion-card-subtitle>$78</ion-card-subtitle>
-    <ion-card-title>${data.id}</ion-card-title>
-    </div>
-    
-  </ion-card-header>
-   <img src = ${data.data().img}>
-   <div style="text-align: center">
-   <button onclick="handleAssign(event)" value =${ind} id=a-${ind} style=" 
-   height:40px; width:80px; padding:5px; font-size:16px; color:white;border-radius: 25px;padding: 3px;
-   background-color:dodgerblue; "> Assign</button>
-   <button onclick="handleUnAssign(event)"  id=ua-${ind} style="
-    height:40px; width:80px; padding:5px;border-radius: 25px;padding:3px;
-     font-size:16px; color:white;background-color:#E74E36 ;display:none"> Unassign</button>
-   </div>
-   </ion-card>
-            `
-        }).join(" ");
-        main.innerHTML = cardList;
-        newCardList = cardList;
-        var mainSpinner = document.querySelector("#mainSpinner");
-        mainSpinner.style.display = "none";
-    })
-    .catch(function(err) {
-       
-        error.innerHTML = err;
-    });
-    navigator.splashscreen.hide();
+    <ion-col>
+<ion-card-header>
+<ion-card-subtitle>${storage.getItem("UserEmail")}</ion-card-subtitle>
+<ion-card-title>${storage.getItem("UserName")}</ion-card-title>
+<a href="index.html" style="z-index:1">
+<ion-button>Signout</ion-button></a>
+</ion-card-header>
 
-    var segments = document.querySelectorAll('ion-segment');
-    
-    var storage = window.localStorage;
-    var profileCard = `
-    
-    <ion-card>
-       <ion-row>
-        <ion-col size="3">
-            <ion-avatar class="ion-margin-start">
-           <img src="img/avatar.svg">
-           </ion-avatar>
-        </ion-col>
-       
-        <ion-col>
-  <ion-card-header>
-    <ion-card-subtitle>${storage.getItem("UserEmail")}</ion-card-subtitle>
-    <ion-card-title>${storage.getItem("UserName")}</ion-card-title>
-    <a href="index.html" style="z-index:1">
-    <ion-button>Signout</ion-button></a>
-  </ion-card-header>
-   
-  </ion-col>
- 
+</ion-col>
+
 </ion-row>
 
 </ion-card>
-    `;
-for (var i = 0; i < segments.length; i++) {
-  segments[i].addEventListener('ionChange', (ev) => {
-    if( ev.detail.value==="profile"){
-        main.innerHTML = "";
-        main.innerHTML = profileCard;
-    }else {
-        profile.innerHTML = "";
-        main.innerHTML = newCardList;}
-    
-  })
-}
+`;      
+
+
+       var scheduler = `
+       <ion-item>
+       <ion-label>Start Time</ion-label>
+       <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
+       </ion-item>
+       
+       `;
+
+        var listeneing = document.querySelector(".listening");
+        listeneing.innerHTML = "loaded device";
+        listeneing.style.display = "none";
+
+        var main = document.querySelector('.mainContent');
+
+        var error = document.querySelector('.error');
+
+        var profile = document.querySelector('.Profile');
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyC7qvTJaOTpkYAkBLgfgvJTI2xjUofr2tE",
+            authDomain: "foodplanner-be200.firebaseapp.com",
+            databaseURL: "https://foodplanner-be200.firebaseio.com",
+            projectId: "foodplanner-be200",
+            storageBucket: "foodplanner-be200.appspot.com",
+            messagingSenderId: "735315343676",
+            appId: "1:735315343676:web:83d367f65d4b40f6b40639"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        "use strict";
+        var segments = document.querySelectorAll('ion-segment');
+        var planner = document.getElementById("planner");
+        profile.innerHTML = profileCard;
+        for (var i = 0; i < segments.length; i++) {
+            segments[i].addEventListener('ionChange', (ev) => {
+                if (ev.detail.value === "profile") {
+                    profile.style.display = "";
+                    planner.style.display = "none";
+                } else if (ev.detail.value === "cycles") {
+                    main.style.display = "";
+                    profile.style.display = "none";
+                    planner.style.display = "none";
+                }
+                else {
+                    main.style.display = "none";
+                    profile.style.display = "none";
+                    planner.style.display = "";
+                    planner.innerHTML = scheduler;
+                }
+
+            })
+        }
+
+        var db = firebase.firestore();
+        var loader = document.getElementById("loader");
+        loader.style.display = "";
+        db.collection("users").where("Email", "==", window.localStorage.getItem("UserEmail"))
+            .get()
+            .then(snap => {
+                var cards = "";
+                db.collection("users").doc(snap.docs[0].id).collection("foodPlan").get().then(e => {
+                    e.docs.forEach(el => {
+                        console.log(el.data());
+                        var dayMenu = "";
+                        var obj = el.data();
+                        for (var pro in obj) {
+                            dayMenu += `${pro.toString()}--${obj[pro].map(el => el)}`
+                        }
+                        cards = cards + `
+                      <ion-card>
+                        <ion-card-header>
+                      <ion-card-title>${el.id}</ion-card-title>
+                    </ion-card-header>
+                     
+                    <ion-card-content>
+                       ${dayMenu
+
+                            }
+                    </ion-card-content>
+                  </ion-card>
+                    `;
+                    })
+                    main.innerHTML = cards;
+                    loader.style.display = "none";
+                })
+
+            })
+
+
 
     }
-    
+
 };
 
 app.initialize();

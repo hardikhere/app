@@ -13,11 +13,12 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "dependencies": {
-    "cordova-android": "^8.1.0",
-    "cordova-browser": "^6.0.0",
     "cordova-plugin-splashscreen": "^5.0.4"
   },
   "devDependencies": {
+    "cordova-android": "^9.0.0",
+    "cordova-browser": "^6.0.0",
+    "cordova-plugin-browsersync": "^1.1.0",
     "cordova-plugin-whitelist": "^1.3.4"
   },
   "cordova": {
@@ -26,8 +27,8 @@
       "cordova-plugin-splashscreen": {}
     },
     "platforms": [
-      "browser",
-      "android"
+      "android",
+      "browser"
     ]
   }
 }

@@ -115,7 +115,7 @@ const handleSubmit = (e)=>{
     const pass = ids.password.value;
     firebase.auth().createUserWithEmailAndPassword(email, pass)
     .then(user=>{
-    
+        console.log(user);
         window.location.href = "index.html";
         ids.spinner.style.display = "none";
     })
@@ -132,8 +132,5 @@ const handleSubmit = (e)=>{
     </script>
    <script type="text/javascript" src="cordova.js"></script>
    <script type="text/javascript" src="js/signup.js"></script>
-   
-   
-
 </body>
 </html>
