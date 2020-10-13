@@ -14,8 +14,8 @@
         <style>
           body{
             background: rgb(250,105,105);
-background: linear-gradient(90deg, rgba(250,105,105,0.5578606442577031) 0%, rgba(255,189,19,0.5662640056022409) 97%);
-          }
+background: linear-gradient(234deg, rgba(250,105,105,0.5578606442577031) 0%, rgba(255,189,19,0.5662640056022409) 97%);
+             }
         </style>
     </head>
     <body>
@@ -53,7 +53,9 @@ background: linear-gradient(90deg, rgba(250,105,105,0.5578606442577031) 0%, rgba
                               </ion-segment>
                         </ion-col>
                     </ion-row>
-                   
+         <div class="colored">
+
+                
                <div id="loader" style="text-align: center;">
                    
                   <ion-spinner id="mainSpinner" class="text-center " name="crescent"></ion-spinner>
@@ -69,7 +71,7 @@ background: linear-gradient(90deg, rgba(250,105,105,0.5578606442577031) 0%, rgba
                 </div>
 
                 <div id="planner" style="display: none;">
-                  <div><img src="img/c.png" style="height: 30%; width: 30%; margin-left: 40%; margin-right: auto;"/></div>
+                  <div><img src="img/c.png" style="height: 24%; width: 24%; margin-left: 40%; margin-right: auto;"/></div>
                   <ion-scroll scrollX="true" scrollY="true">
                     <ion-item>
                       <ion-label>Select Day</ion-label>
@@ -86,6 +88,10 @@ background: linear-gradient(90deg, rgba(250,105,105,0.5578606442577031) 0%, rgba
                   <ion-item>
                       <div><ion-input id="hours" placeholder="hour"></ion-input></div>
                      <div> <ion-input id="minutes" placeholder="minutes"></ion-input></div>
+                     <div><ion-select id="ampm" value="PM" interface="popover">
+                      <ion-select-option value="AM">AM</ion-select-option>
+                      <ion-select-option value="PM">PM</ion-select-option>
+                     </ion-select></div>
                   </ion-item>
                   <ion-item style="margin-top:0.5rem; padding-top: 3%;">
                     <ion-label>
@@ -105,8 +111,8 @@ background: linear-gradient(90deg, rgba(250,105,105,0.5578606442577031) 0%, rgba
                   </ion-scroll>
                 </div>
                
-                     
-              </ion-grid>
+            </div>          
+          </ion-grid>
                     </div>
                </div>
              </div>

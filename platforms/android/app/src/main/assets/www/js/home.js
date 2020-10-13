@@ -104,7 +104,7 @@ var app = {
         db.collection("users").where("Email", "==", window.localStorage.getItem("UserEmail"))
             .get()
             .then(snap => {
-                var cards = "<div style='text-align:center'><h3>Your Schedule</h3> <img style='width:10%; height:10%' src='img/oops.png' /></div>";
+                var cards = "";
                 window.localStorage.setItem("uid",snap.docs[0].id);
                 console.log(snap.docs[0].id);
                 db.collection("users").doc(snap.docs[0].id).collection("foodPlan").get().then(e => {
@@ -112,6 +112,7 @@ var app = {
                     e.docs.forEach(el => {
                         console.log(el.data());
                         var dayMenu = "";
+                        cards+="<div style='text-align:center'><h3>Your Schedule</h3> <img style='width:10%; height:10%' src='img/c.png' /></div>";
                         var obj = el.data();
                         for (var pro in obj) {
                             dayMenu += `<div>${pro.toString()} -- ${obj[pro].map(el => el)}</div>`
@@ -140,6 +141,7 @@ var app = {
                 `;
                
                   if(cards==="") {
+                      main.style.display = "";
                       main.innerHTML = defaultMsg;
                       document.getElementById("takeTocreate").addEventListener("click",()=>{
                         document.getElementById("SegmentHead").value= "scheduler";
@@ -159,8 +161,9 @@ var app = {
             var day = document.getElementById("day");
             var foodArr = window.localStorage.getItem("foodArr").split(",");
             var uid = window.localStorage.getItem("uid");
+            var ampm = document.getElementById("ampm");
             db.collection("users").doc(uid).collection("foodPlan").doc(day.value).set({
-                [`${hours.value}:${min.value}`]:foodArr
+                [`${hours.value}:${min.value}${ampm.value}`]:foodArr
             },{merge:true}).then(val=>{
                 
                  window.location.reload();

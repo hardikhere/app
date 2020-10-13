@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+      
+        <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob:
+         data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+       
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+        <title>Home</title>
+        <style>
+          body{
+            background: rgb(250,105,105);
+background: linear-gradient(234deg, rgba(250,105,105,0.5578606442577031) 0%, rgba(255,189,19,0.5662640056022409) 97%);
+             }
+        </style>
+    </head>
+    <body>
+      <div id="invoiceModal" style="
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+      ">
+
+      </div>
+        <div class="app">
+
+            <div id="deviceready" >
+              <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+              <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+              <div class="listening">loading</div>
+              <div class="event received">
+               
+           
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-segment scrollable value="cycles" id="SegmentHead">
+                                <ion-segment-button style="width: 3rem;" value="cycles">
+                                  <ion-label>Food Plan</ion-label>
+                                </ion-segment-button>
+                                <ion-segment-button style="width: 3rem;" value="scheduler">
+                                  <ion-label>Scheduler</ion-label>
+                                </ion-segment-button>
+                                <ion-segment-button style="width: 3rem;" value="profile">
+                                  <ion-label>Profile</ion-label>
+                                </ion-segment-button>
+                              </ion-segment>
+                        </ion-col>
+                    </ion-row>
+         <div class="colored">
+
+                
+               <div id="loader" style="text-align: center;">
+                   
+                  <ion-spinner id="mainSpinner" class="text-center " name="crescent"></ion-spinner>
+               </div>
+               
+           
+              <h2 class = "error"></h2>
+                <div class="Profile" style="display: none;">
+                             
+                </div>
+                <div class="mainContent" style="text-align: center;">
+                    <h3>Your Weekly Schedule</h3>
+                </div>
+
+                <div id="planner" style="display: none;">
+                  <div><img src="img/c.png" style="height: 24%; width: 24%; margin-left: 40%; margin-right: auto;"/></div>
+                  <ion-scroll scrollX="true" scrollY="true">
+                    <ion-item>
+                      <ion-label>Select Day</ion-label>
+                      <ion-select id="day" value="Sunday" interface="popover" >
+                        <ion-select-option value="Sunday">Sunday</ion-select-option>
+                        <ion-select-option value="Monday">Monday</ion-select-option>
+                        <ion-select-option value="Tuesday">Tuesday</ion-select-option>
+                        <ion-select-option value="Wednesday">Wednesday</ion-select-option>
+                        <ion-select-option value="Friday">Friday</ion-select-option>
+                        <ion-select-option value="Saturday">Saturday</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  <ion-item><ion-label>Time</ion-label></ion-item>
+                  <ion-item>
+                      <div><ion-input id="hours" placeholder="hour"></ion-input></div>
+                     <div> <ion-input id="minutes" placeholder="minutes"></ion-input></div>
+                     <div><ion-select id="ampm" value="PM" interface="popover">
+                      <ion-select-option value="AM">AM</ion-select-option>
+                      <ion-select-option value="PM">PM</ion-select-option>
+                     </ion-select></div>
+                  </ion-item>
+                  <ion-item style="margin-top:0.5rem; padding-top: 3%;">
+                    <ion-label>
+                      Enter Food Name
+                    </ion-label>
+                    <ion-input id="foodname" placeholder="food name"></ion-input>
+                    <ion-button onclick="addFood(event)">Add</ion-button>
+                  </ion-item>
+                  <div id="foodList" style="text-align: center; margin-top: 2rem;">
+                     
+                  </div>
+                  <div style="text-align: center;">
+                    <ion-button id ="mybtn"  style="height: 3rem; margin-top:1rem ;"> 
+                      Submit
+                     </ion-button>
+                  </div>
+                  </ion-scroll>
+                </div>
+               
+            </div>          
+          </ion-grid>
+                    </div>
+               </div>
+             </div>
+            </div>
+            <script type="text/javascript" src="cordova.js"></script>
+              <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+              <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+              <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+              <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+              <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+        
+              <script type="text/javascript" src="js/home.js"></script>
+  </body>
+
+  <script>
+      function getTime(e){
+        console.log("im clicked")
+            var hours = document.getElementById("hours");
+            console.log(hours.value);
+      }
+      var mybtn = document.getElementById("mybtn");
+      mybtn.addEventListener("click",console.log("i am clicked"));
+      var foodInput = document.getElementById("foodname");
+      var foodArr = [];
+      var foodList = document.getElementById("foodList");
+      function removeFood(e){
+        console.log(e.target.id);
+        foodArr  = foodArr.filter((val,ind)=>{
+                   return ind==e.target.id?  false: true});
+                   list = "";
+        foodArr.forEach((val,ind)=>{
+          list+=`<div style="padding:5px">
+           ${val}
+            <ion-button id=${ind} color="danger" style=" background-color:red;display:inline-block; height:16px;width:10px; position:absolute;right:20%"  onclick="removeFood(event)">x</ion-button>
+            </div>`
+        });
+        foodList.innerHTML = list;
+        console.log(foodArr);
+      }
+     
+      
+      function addFood(){
+        if(foodInput.value==="") return;
+        foodArr.push(foodInput.value);
+        var list = "";
+        foodArr.forEach((val,ind)=>{
+          list+=`<div style="padding:5px">
+            ${val}
+            <ion-button id=${ind} color="danger" style="background-color:red;display:inline-block; height:16px;width:10px; position:absolute;right:20%"  onclick="removeFood(event)">x</ion-button>
+            </div>`
+        });
+        foodList.innerHTML = list;
+        foodInput.value = "";
+        window.localStorage.setItem("foodArr",foodArr);
+      }
+
+   
+
+  </script>
+</html>
