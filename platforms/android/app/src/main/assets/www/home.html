@@ -19,15 +19,7 @@ background: linear-gradient(234deg, rgba(250,105,105,0.5578606442577031) 0%, rgb
         </style>
     </head>
     <body>
-      <div id="invoiceModal" style="
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        bottom: 0px;
-        right: 0px;
-      ">
 
-      </div>
         <div class="app">
 
             <div id="deviceready" >
@@ -37,7 +29,7 @@ background: linear-gradient(234deg, rgba(250,105,105,0.5578606442577031) 0%, rgb
               <div class="event received">
                
            
-                <ion-grid>
+                <ion-grid overflow-scroll="true">
                     <ion-row>
                         <ion-col>
                             <ion-segment scrollable value="cycles" id="SegmentHead">
@@ -66,9 +58,14 @@ background: linear-gradient(234deg, rgba(250,105,105,0.5578606442577031) 0%, rgb
                 <div class="Profile" style="display: none;">
                              
                 </div>
-                <div class="mainContent" style="text-align: center;">
-                    <h3>Your Weekly Schedule</h3>
-                </div>
+               
+                  
+                  <div class="mainContent" style="text-align: center; position:absolute; top:10%; right:0; bottom:0; left:0; overflow-y:scroll; overflow-x: hidden" >
+                    
+                   </div>
+                
+              
+                
 
                 <div id="planner" style="display: none;">
                   <div><img src="img/c.png" style="height: 24%; width: 24%; margin-left: 40%; margin-right: auto;"/></div>

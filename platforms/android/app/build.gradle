@@ -19,6 +19,24 @@
 
 apply plugin: 'com.android.application'
 
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.example.abc.test"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
 if (cdvHelpers.getConfigPreference('GradlePluginKotlinEnabled', 'false').toBoolean()) {
     apply plugin: 'kotlin-android'
     apply plugin: 'kotlin-android-extensions'
@@ -147,6 +165,8 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "../cordova-plugin-badge/myapp-badge.gradle"
+apply from: "../cordova-plugin-local-notification/myapp-localnotification.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -231,6 +251,8 @@ task cdvPrintProps {
 }
 
 android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         versionCode cdvVersionCode ?: new BigInteger("" + privateHelpers.extractIntFromManifest("versionCode"))
         applicationId privateHelpers.extractStringFromManifest("package")
@@ -351,6 +373,7 @@ dependencies {
 
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
+    implementation "com.android.support:support-v4:26.+"
     // SUB-PROJECT DEPENDENCIES END
 }
 

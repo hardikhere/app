@@ -12,7 +12,17 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.hardik.myapp"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.hardik.myapp"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.hardik.myapp"
+    },
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.hardik.myapp"
+    }
+  }
 }
